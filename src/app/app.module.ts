@@ -12,12 +12,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment.development';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RequestInterceptor } from './request.interceptor';
+import { FontDirective } from './directives/font.directive';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
     HomeChildComponent,
+    FontDirective,
   ],
   imports: [
     BrowserModule,
