@@ -10,6 +10,8 @@ import { StoreModule } from '@ngrx/store';
 import { counterReducer } from './store/counter/counter';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment.development';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { RequestInterceptor } from './request.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +22,7 @@ import { environment } from 'src/environments/environment.development';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     StoreModule.forRoot({
       counterReducer: counterReducer, // reducer state güncelleyen yapılar.
       // actionda state güncelleme işlemini başlatan yapılar.
@@ -29,7 +32,13 @@ import { environment } from 'src/environments/environment.development';
       logOnly: !environment.production,
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
